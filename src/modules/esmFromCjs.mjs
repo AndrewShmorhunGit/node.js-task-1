@@ -1,17 +1,16 @@
-import { __dirname, __fileName, config } from "./path-modules";
+import { __dirname, __fileName, config } from "./path-modules.js";
 import { release, version } from "os";
 import { createServer as createServerHttp } from "http";
+import "./files/a.js";
 
-const assert = { assert: { type: "json" } };
-
-const object =
-  data.random() > 0.5
-    ? await import(data.path.a, assert)
-    : await import(data.path.b, assert);
+let object =
+  config.random() > 0.5
+    ? await import(config.path.a, config.assert)
+    : await import(config.path.b, config.assert);
 
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
-console.log(`Path segment separator is "${data.sep}"`);
+console.log(`Path segment separator is "${config.sep}"`);
 
 console.log(`Path to current file is ${__fileName}`);
 console.log(`Path to current directory is ${__dirname}`);
@@ -22,8 +21,8 @@ const myServer = createServerHttp((_, res) => {
 
 console.log(object);
 
-myServer.listen(data.port, () => {
-  console.log(`Server is listening on port ${data.port}`);
+myServer.listen(config.port, () => {
+  console.log(`Server is listening on port ${config.port}`);
   console.log("To terminate it, use Ctrl+C combination");
 });
 
