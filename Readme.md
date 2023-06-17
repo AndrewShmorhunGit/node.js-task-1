@@ -1,3 +1,5 @@
 # Node.js basics
 
-## !!! Please don't submit Pull Requests to this repository !!!
+## Task 1. Working with Node.js modules
+
+> Made by andrew Shmorhun
