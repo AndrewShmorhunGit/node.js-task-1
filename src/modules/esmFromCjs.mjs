@@ -1,17 +1,21 @@
 import { __dirname, __fileName, config } from "./path-modules.js";
 import { release, version } from "os";
 import { createServer as createServerHttp } from "http";
-import "./files/a.js";
+import "./files/c.js";
 
-let object =
-  config.random() > 0.5
-    ? await import(config.path.a, config.assert)
-    : await import(config.path.b, config.assert);
+async function fn() {
+  let { default: object } =
+    config.random() > 0.5
+      ? await import("./files/a.json", config.assert)
+      : await import("./files/b.json", config.assert);
+  return object;
+}
+
+const object = await fn();
 
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
 console.log(`Path segment separator is "${config.sep}"`);
-
 console.log(`Path to current file is ${__fileName}`);
 console.log(`Path to current directory is ${__dirname}`);
 
