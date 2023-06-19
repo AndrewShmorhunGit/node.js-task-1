@@ -1,9 +1,8 @@
 import { Worker } from "worker_threads";
 import { cpus } from "os";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { getPath } from "../utils.js";
+
+const path = getPath(import.meta.url, "", "/worker.js");
 
 export async function performCalculations() {
   const cp = cpus();
@@ -13,7 +12,7 @@ export async function performCalculations() {
   const workersResults = await Promise.allSettled(
     cp.map(() => {
       return new Promise((res, rej) => {
-        const worker = new Worker(__dirname + "/worker.js", {
+        const worker = new Worker(path, {
           workerData: num++,
         });
         worker.on("message", (msg) => res(msg));

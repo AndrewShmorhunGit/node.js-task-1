@@ -1,16 +1,12 @@
 import { spawn } from "child_process";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { getPath } from "../utils.js";
+
+const path = getPath(import.meta.url, "/files", "/script.js");
 
 export async function spawnChildProcess(args) {
   let initiated = false;
 
-  const childProcess = spawn("node", [
-    `${dirname}/files/script.js`,
-    ...args.split(""),
-  ]);
+  const childProcess = spawn("node", [path, ...args.split("")]);
   process.stdin.on("data", (data) => {
     console.log(data.toString());
     if (!initiated) {
@@ -20,5 +16,4 @@ export async function spawnChildProcess(args) {
   });
 }
 
-// Put your arguments in function call to test this functionality
 spawnChildProcess("--silent --all");

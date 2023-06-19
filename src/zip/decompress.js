@@ -1,19 +1,35 @@
 import { createUnzip } from "zlib";
 import { createReadStream, createWriteStream } from "fs";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { getPath } from "../utils.js";
 
-export async function decompress() {
+const fileNameToDecompressIn = "/fileToCompress.txt";
+const fileNameToDecompress = "/archive.gz";
+
+const pathToDecompressIn = getPath(
+  import.meta.url,
+  "/files",
+  fileNameToDecompressIn
+);
+
+const pathToDecompress = getPath(
+  import.meta.url,
+  "/files",
+  fileNameToDecompress
+);
+
+export async function decompress(pathToDecompressIn, pathToDecompress) {
   const writeStream = createWriteStream(
-    __dirname + "/files/fileToCompress.txt"
+    // __dirname + "/files/fileToCompress.txt"
+    pathToDecompressIn
   );
-  const readStream = createReadStream(__dirname + "/files/archive.gz");
+  const readStream = createReadStream(
+    // __dirname + "/files/archive.gz"
+    pathToDecompress
+  );
   const toGz = createUnzip();
 
   readStream.pipe(toGz).pipe(writeStream);
 
   console.log("file archive.gz was extracted to files directory!");
 }
-decompress();
+decompress(pathToDecompressIn, pathToDecompress);

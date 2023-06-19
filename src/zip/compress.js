@@ -1,13 +1,25 @@
 import { createGzip } from "zlib";
 import { createReadStream, createWriteStream } from "fs";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { getPath } from "../utils.js";
 
-export async function compress() {
-  const readStream = createReadStream(__dirname + "/files/fileToCompress.txt");
-  const writeStream = createWriteStream(__dirname + "/files/archive.gz");
+const fileNameToCompressFrom = "/fileToCompress.txt";
+const fileNameToCompressIn = "/archive.gz";
+
+const pathToCompressFrom = getPath(
+  import.meta.url,
+  "/files",
+  fileNameToCompressFrom
+);
+
+const pathToToCompressIn = getPath(
+  import.meta.url,
+  "/files",
+  fileNameToCompressIn
+);
+
+export async function compress(pathToCompressFrom, pathToToCompressIn) {
+  const readStream = createReadStream(pathToCompressFrom);
+  const writeStream = createWriteStream(pathToToCompressIn);
   const toGz = createGzip();
 
   readStream.pipe(toGz).pipe(writeStream);
@@ -15,4 +27,4 @@ export async function compress() {
   console.log("fileToCompress.txt was archived!");
 }
 
-compress();
+compress(pathToCompressFrom, pathToToCompressIn);
