@@ -14,7 +14,7 @@
     "fs:read": "node src/fs/read.js",
     "fs:rename": "node src/fs/rename.js",
     "hash": "node src/hash/calcHash.js",
-    "modules": "node src/modules/esm.mjs",
+    "modules": "node src/modules/esmFromCjs.mjs",
     "streams:read": "node src/streams/read.js",
     "streams:transform": "node src/streams/transform.js",
     "streams:write": "node src/streams/write.js",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlreadyBored/node-nodejs-basics.git"
+    "url": "git+https://github.com/AndrewShmorhunGit/node.js-task-1"
   },
   "keywords": [
     "nodejs",

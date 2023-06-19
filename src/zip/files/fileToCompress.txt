@@ -1,1 +1,1 @@
-Compress me!
+Hello from decompressed file)
